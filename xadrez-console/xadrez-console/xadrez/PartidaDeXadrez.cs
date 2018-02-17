@@ -35,6 +35,17 @@ namespace xadrez {
                 capturadas.Add(pecaCapturada);
             }
 
+            // #jogadaespecial promocao
+            if (p is Peao) {
+                if ((p.cor == Cor.Branca && destino.linha == 0) || (p.cor == Cor.Preta && destino.linha == 7)) {
+                    p = tab.retirarPeca(destino);
+                    pecas.Remove(p);
+                    Peca dama = new Dama(tab, p.cor);
+                    tab.colocarPeca(dama, destino);
+                    pecas.Add(dama);
+                }
+            }
+
             // #jogadaespecial roque pequeno
             if (p is Rei && destino.coluna == origem.coluna + 2) {
                 Posicao origemT = new Posicao(origem.linha, origem.coluna + 3);
